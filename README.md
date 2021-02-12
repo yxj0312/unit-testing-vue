@@ -61,3 +61,17 @@ test('if a user is logged in, show logout button', () => {
   // test body
 })
 ```
+
+## Asserting Expectations
+
+In Jest, we use assertions to determine whether what we expect the test to return matches what is actually returned. Specifically, we do this by using Jest’s expect() method, which gives us access to a number of “matchers” that help us match the actual result against the expected result.
+
+The syntax for an assertion basically works like this:
+
+```JavaScript
+expect(theResult).toBe(true)
+```
+
+Inside the expect() method, we’re putting the result itself that we’re testing. We then use a matcher to determine if that result is what we expected it to be. So here, we’re using the common Jest matcher toBe() to say: we expect the result to be true
+
+Understanding how to write tests means understanding what matchers are available to you, so take some time to understand [the Jest Matchers API](https://jestjs.io/docs/en/expect).
