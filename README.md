@@ -1,29 +1,6 @@
 # unit-testing-vue
 
-## Project setup
-```
-npm install
-```
+## Spec meaning
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Spec stands for specification because in this file we are essentially specifying how the AppHeader component ought to behave, and testing that behavior.
+Note that these file names must include “spec.js” — without it, they won’t be run when we use the ```npm run test:unit``` script.
