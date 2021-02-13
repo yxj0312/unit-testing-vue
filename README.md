@@ -117,3 +117,28 @@ test("if logged in, show logout button", async () => {
     expect(wrapper.find('button').isVisible()).toBe(true)
   })
 ```
+
+## Random Number Component
+
+### What tests should we write?
+
+Inputs
+
+Props:
+
+- min & max
+  
+User Interaction:
+
+Clicking of the Generate Random Number button
+Outputs
+
+Rendered Output (DOM)
+
+- Is the number displayed on the screen between min and max?
+
+We can use this knowledge to figure out what to test in this component:
+
+1. By default, the randomNumber data value should be 0
+2. If we click the generate button, randomNumber should be between 1 (min) and 10 (max)
+3. If we change the min and max props to 200 and 300 and click the button, randomNumber should be between 200 (min) and 300 (max).
