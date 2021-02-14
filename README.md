@@ -154,3 +154,26 @@ we need to accomplish the following steps:
 3. Simulate form submission
 4. Assert event has been emitted
 5. Assert payload is correct
+
+### A note about targeting inputs
+
+```JavaScript
+const input = wrapper.find('input[type="text"]')
+```
+
+This works great for our specific needs, but it’s worth mentioning here that in production tests, you might considering using test-specific attribute on your elements, like so:
+
+```JavaScript
+<input data-testid="name-input" type="text" v-model="name" />
+```
+
+Then, in your test file, you’d find the input using that attribute.
+
+```JavaScript
+const input = wrapper.find('[data-testid="name-input"]')
+```
+
+This is beneficial for a few reasons.
+First, if we had multiple inputs we could target them specifically with these ids, and perhaps more importantly this decouples the DOM from your test.
+For example, if you eventually replaced the native input with an input from a component library, the test would still conform to the same interface and wouldn’t need to change.
+ It also solves the issue of a designer changing the class or id name of the element, causing your test to fail. Test-specific attributes are one way to future-proof your tests.
