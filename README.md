@@ -177,3 +177,12 @@ This is beneficial for a few reasons.
 First, if we had multiple inputs we could target them specifically with these ids, and perhaps more importantly this decouples the DOM from your test.
 For example, if you eventually replaced the native input with an input from a component library, the test would still conform to the same interface and wouldn’t need to change.
  It also solves the issue of a designer changing the class or id name of the element, causing your test to fail. Test-specific attributes are one way to future-proof your tests.
+
+### Simulating the form submission
+
+While you might be tempted to use trigger on our form’s button to simulate our form submission, there’s a potential problem with that.
+What if we eventually removed the button from this component and instead relied on the input’s keyup.enter event to submit the form?
+
+We would have to refactor our test. In other words: in that case our test would have been too tightly coupled with the implementation details of our component’s form. So the more future-proofed solution would be to force a submit even on the form itself, without relying on our button as the middle man.
+
+Now by using wrapper.trigger('submit'), we’ve implemented a more scalable, decoupled solution to simulate a user submitting our form.
