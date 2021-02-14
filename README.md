@@ -142,3 +142,15 @@ We can use this knowledge to figure out what to test in this component:
 1. By default, the randomNumber data value should be 0
 2. If we click the generate button, randomNumber should be between 1 (min) and 10 (max)
 3. If we change the min and max props to 200 and 300 and click the button, randomNumber should be between 200 (min) and 300 (max).
+
+## Testing Emitted Events
+
+### Scaffolding the test file
+
+we need to accomplish the following steps:
+
+1. Find text input
+2. Set value for text input
+3. Simulate form submission
+4. Assert event has been emitted
+5. Assert payload is correct
