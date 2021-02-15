@@ -201,3 +201,34 @@ So in our test file, we’ll need to:
 1. Mock a successful call to getMessage, checking that the message is displayed
 
 2. Mock a failed call to getMessage, checking that the error is displayed
+
+### Mocking Axios
+
+```JavaScript
+jest.mock('@/services/axios')
+```
+
+You can think of jest.mock as saying: “I’ll take your getMessage function, and in return I’ll give you a mocked getMessage function.” Now, when we call getMessage within our tests, we’re actually calling the mocked version of that function, not the actual one.
+
+```JavaScript
+import MessageDisplay from '@/components/MessageDisplay'
+import { mount } from '@vue/test-utils'
+import { getMessage } from '@/services/axios'
+
+jest.mock('@/services/axios')
+
+describe('MessageDisplay', () => {
+  it('Calls getMessage and displays message', async () => {
+     const mockMessage = 'Hello from the db' 
+     getMessage.mockResolvedValueOnce({ text: mockMessage }) // calling our mocked get request
+     const wrapper = mount(MessageDisplay)
+      // wait for promise to resolve
+      // check that call happened once
+      // check that component displays message
+  })
+})
+```
+
+By using jest’s [mockResolvedValueOnce()](https://jestjs.io/docs/en/mock-function-api.html#mockfnmockresolvedvalueoncevalue) method, we’re doing exactly what the method name suggests: pretending to make the API call and returning a mocked value for the call to resolve with. As its argument, this method takes in the value we want this mocked function to resolve with. In other words, this is where we put a stand-in for what the request should’ve returned. So we’ll pass in { text: mockMessage } to replicate what the server would respond with.
+
+As you can see, we’re using async like we have in previous tests, because axios (and our mocked axios call) is asynchronous. This means that before we write any assertions, we’ll need to make sure that the promise that our mocked call returns gets resolved. Otherwise, our tests would run before the promise is resolved, and fail.

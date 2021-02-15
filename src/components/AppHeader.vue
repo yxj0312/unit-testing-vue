@@ -9,9 +9,9 @@ export default {
   data() {
     return {
       loggedIn: false
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped>
