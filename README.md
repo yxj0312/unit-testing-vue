@@ -232,3 +232,26 @@ describe('MessageDisplay', () => {
 By using jest’s [mockResolvedValueOnce()](https://jestjs.io/docs/en/mock-function-api.html#mockfnmockresolvedvalueoncevalue) method, we’re doing exactly what the method name suggests: pretending to make the API call and returning a mocked value for the call to resolve with. As its argument, this method takes in the value we want this mocked function to resolve with. In other words, this is where we put a stand-in for what the request should’ve returned. So we’ll pass in { text: mockMessage } to replicate what the server would respond with.
 
 As you can see, we’re using async like we have in previous tests, because axios (and our mocked axios call) is asynchronous. This means that before we write any assertions, we’ll need to make sure that the promise that our mocked call returns gets resolved. Otherwise, our tests would run before the promise is resolved, and fail.
+
+### Awaiting Promises
+
+When figuring out where to await in our test, we have to think back to how getMessage is being called in the component we’re testing. Remember, it’s being called on the component’s created lifecycle hook?
+
+```JavaScript
+async created() {
+            try {
+               this.message = await getMessage()
+            } catch (err) {
+               this.error = 'Oops! Something went wrong.'
+            }
+       }
+```
+
+Since vue-test-utils doesn’t have access to the internals of promises that are enqueued by the created lifecycle hook, we can’t really tap into anything to await for that promise. So the solution here is to use a third-party library called flush-promises which allows us to—well—flush the promises, ensuring they’re all resolved prior to running our assertions.
+
+Once we’ve installed the library with npm i flush-promises --save-dev, we’ll import it into our testing file and await the flushing of the promises.
+
+```JavaScript
+await flushPromises()
+```
+Now that we’ve ensured promises will be resolved before our assertions are run, we can write those assertions.
