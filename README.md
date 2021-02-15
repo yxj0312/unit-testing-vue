@@ -186,3 +186,18 @@ What if we eventually removed the button from this component and instead relied 
 We would have to refactor our test. In other words: in that case our test would have been too tightly coupled with the implementation details of our component’s form. So the more future-proofed solution would be to force a submit even on the form itself, without relying on our button as the middle man.
 
 Now by using wrapper.trigger('submit'), we’ve implemented a more scalable, decoupled solution to simulate a user submitting our form.
+
+## Testing API Calls
+
+### Inputs & Outputs
+
+Well, we know that the response from the getMessage call is our input, and we have two possible outputs:
+
+1. The call happens successfully and the message is displayed
+2. The call fails and the error is displayed
+
+So in our test file, we’ll need to:
+
+1. Mock a successful call to getMessage, checking that the message is displayed
+
+2. Mock a failed call to getMessage, checking that the error is displayed
