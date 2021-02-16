@@ -189,6 +189,8 @@ Now by using wrapper.trigger('submit'), we’ve implemented a more scalable, dec
 
 ## Testing API Calls
 
+run json-server --watch db.json (install npm install -g json-server before)
+
 ### Inputs & Outputs
 
 Well, we know that the response from the getMessage call is our input, and we have two possible outputs:
