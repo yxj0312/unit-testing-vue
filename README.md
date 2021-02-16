@@ -254,4 +254,11 @@ Once we’ve installed the library with npm i flush-promises --save-dev, we’ll
 ```JavaScript
 await flushPromises()
 ```
+
 Now that we’ve ensured promises will be resolved before our assertions are run, we can write those assertions.
+
+### Our Assertions
+
+We’re simply running the method .toHaveBeenCalledTimes() and passing in the number of times we expect getMessage to have been called: 1. Now we’ve ensured that we aren’t accidentally hitting our server more times than we should be.
+
+Next up, we need to check that our component is displaying the message it received from our getMessage request. In the MessageDisplay component’s template, the p tag that displays the message has an id to be used for tests: data-testid="message"
