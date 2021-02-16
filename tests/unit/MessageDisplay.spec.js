@@ -9,7 +9,7 @@ describe('MessageDisplay', () => {
   it('Calls getMessage and displays message', async () => {
     // mock the API call
     const mockMessage = 'Hello from the db'
-    getMessage.mockResolvedValueOnce(mockMessage) // calling our mocked get request
+    getMessage.mockResolvedValueOnce({ text: mockMessage }) // calling our mocked get request
     const wrapper = mount(MessageDisplay)
     // wait for promise to resolve
     await flushPromises()
