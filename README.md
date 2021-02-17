@@ -306,3 +306,9 @@ beforeEach(() => {
 ```
 
 Now, beforeEach test is run, we’ll make sure the getMessage mock has been cleared, which will reset the number of times it’s been called back to 0.
+
+## Stubbing Child Components
+
+This concept of mocking something within our unit test is a broader topic than just mocking modules, whether they be axios or some other external dependency. In this lesson, we’ll delve deeper into this topic and look at another form of faking something within a component’s test, called stubbing, and why and when this approach might be useful.
+
+### Children with Baggage
