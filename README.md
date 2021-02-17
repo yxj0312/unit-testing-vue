@@ -336,3 +336,7 @@ So what’s the solution here? How do we test MessageContainer without triggerin
 The answer to that is perhaps not a very satisfying one. Because the answer is: it depends. It depends on the complexity and number of modules that the child has. For this example, things are fairly lightweight. We only have one module, so we could simply mock axios in MessageContainer’s test, just like we did in our MessageDisplay.spec.js. But what if our child component had multiple module dependencies? In more complex cases, it’s often the simpler approach to skip mocking the child component’s module baggage and instead mock the child component itself. In other words: we can use a stub, or fake placeholder version, of the child component.
 
 ### The MessageContainer Test
+
+We’ll create a const to store the stubMessage we are expecting to be rendered, and in our assertion we’ll compare that against the message that was mounted (from the stub).
+
+If we run npm run test:unit in our terminal, we indeed see that our test is passing and we’ve confirmed that MessageContainer is doing its job: wrapping the (stubbed) MessageDisplay component, which displays what the real child would have. Great.
