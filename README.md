@@ -264,3 +264,45 @@ Now that we’ve ensured promises will be resolved before our assertions are run
 We’re simply running the method .toHaveBeenCalledTimes() and passing in the number of times we expect getMessage to have been called: 1. Now we’ve ensured that we aren’t accidentally hitting our server more times than we should be.
 
 Next up, we need to check that our component is displaying the message it received from our getMessage request. In the MessageDisplay component’s template, the p tag that displays the message has an id to be used for tests: data-testid="message"
+
+### Mocking a failed request
+
+Notice how we’re using mockRejectedValueOnce to simulate the failed get request, and we’re passing it the mockError for it to resolve with.
+
+After awaiting the flushing of the promises, we can then check that the call only happened once and verify that our component’s template is displaying the expected mockError.
+
+```JavaScript
+  it('Displays an error when getMessage call fails', async () => {
+    const mockError = 'Oops! Something went wrong.'
+    getMessage.mockRejectedValueOnce(mockError)
+    const wrapper = mount(MessageDisplay)
+
+    await flushPromises()
+    expect(getMessage).toHaveBeenCalledTimes(1)
+    const displayedError = wrapper.find('[data-testid="message-error"]').element
+      .textContent
+    expect(displayedError).toEqual(mockError)
+  })
+```
+
+Just like our first test, we’re using .toHaveBeenCalledTimes(1) to make sure we’re not making the API call more than we should be, and we’re finding the element that displays the error message and checking its text content against the mockError that our mocked failed request returned.
+
+Now if we run these tests, what happens? The test is failing:
+
+Expected number of calls: 1 Received number of calls: 2
+
+Hmm… what’s happening here? Well, in our first test, getMessage was called, and then it gets called again in our second test. We haven’t done anything to clear out our mocked getMessage function before running the second test. Fortunately, the fix is quite simple.
+
+### Clear All Mocks
+
+Below where we’re creating our jest mock, we can add the solution, clearing all of our mocks.
+
+```JavaScript
+  jest.mock('@/services/axios')
+beforeEach(() => {
+  jest.clearAllMocks()
+})
+
+```
+
+Now, beforeEach test is run, we’ll make sure the getMessage mock has been cleared, which will reset the number of times it’s been called back to 0.
