@@ -312,3 +312,27 @@ Now, beforeEach test is run, we’ll make sure the getMessage mock has been clea
 This concept of mocking something within our unit test is a broader topic than just mocking modules, whether they be axios or some other external dependency. In this lesson, we’ll delve deeper into this topic and look at another form of faking something within a component’s test, called stubbing, and why and when this approach might be useful.
 
 ### Children with Baggage
+
+```JavaScript
+<template>
+  <MessageDisplay />
+</template>
+
+<script>
+import MessageDisplay from '@/components/MessageDisplay'
+
+export default {
+  components: {
+    MessageDisplay
+  }
+}
+</script>
+```
+
+As you can see, MessageContainer simply imports and wraps MessageDisplay. This means that when MessageContainer gets rendered, MessageDisplay is also rendered. So we’re hitting up against the same problem from our previous lesson. We don’t want to actually fire the real axios get request that happens on MessageDisplay’s created hook.
+
+So what’s the solution here? How do we test MessageContainer without triggering its child’s axios request? Or to make the question more general: What do we do when a child component has module dependencies that we don’t want to use the real version of within our tests?
+
+The answer to that is perhaps not a very satisfying one. Because the answer is: it depends. It depends on the complexity and number of modules that the child has. For this example, things are fairly lightweight. We only have one module, so we could simply mock axios in MessageContainer’s test, just like we did in our MessageDisplay.spec.js. But what if our child component had multiple module dependencies? In more complex cases, it’s often the simpler approach to skip mocking the child component’s module baggage and instead mock the child component itself. In other words: we can use a stub, or fake placeholder version, of the child component.
+
+### The MessageContainer Test
