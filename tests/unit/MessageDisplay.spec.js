@@ -4,6 +4,9 @@ import { getMessage } from '@/services/axios'
 import flushPromises from 'flush-promises'
 
 jest.mock('@/services/axios')
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
 describe('MessageDisplay', () => {
   it('Calls getMessage and displays message', async () => {
@@ -22,11 +25,16 @@ describe('MessageDisplay', () => {
 
   it('Displays an error when getMessage call fails', async () => {
     // mock the failed API call
+    const mockError = 'Oops! Something went wrong.'
+    getMessage.mockRejectedValueOnce(mockError)
     const wrapper = mount(MessageDisplay)
     // wait for promise to resolve
     await flushPromises()
     // check that call happened
-
+    expect(getMessage).toHaveBeenCalledTimes(1)
     // check that component displays error
+    const displayedError = wrapper.find('[data-testid="message-error"]').element
+      .textContent
+    expect(displayedError).toEqual(mockError)
   })
 })
