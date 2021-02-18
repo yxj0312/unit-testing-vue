@@ -351,8 +351,10 @@ If we run npm run test:unit in our terminal, we indeed see that our test is pass
 
 While stubs can help us simplify tests containing otherwise burdensome child components, we need to take a moment to consider the disadvantages of stubbing.
 
+1. Maintenance costs
 Since a stub is really just a placeholder for the child component, if that real component’s behavior changed, we may need to then update the stub accordingly. This can lead to maintenance costs for upkeeping our stubs as our app evolves. Generally speaking, stubs can create a coupling between the test and component’s implementation details.
 
+2. Decreased coverage/confidence
 Furthermore, since a stub isn’t the actual fully rendered component, you are reducing test coverage of your real component codebase, which can lead to reduced confidence that your tests are giving you truthful feedback about your app.
 
 I bring up these points not to discourage against using stubs, but to encourage you to use them wisely and sparingly, remembering that it’s often the better practice to focus on mocking modules and service layers like we saw in the previous lesson.
