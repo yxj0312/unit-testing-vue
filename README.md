@@ -341,6 +341,12 @@ We’ll create a const to store the stubMessage we are expecting to be rendered,
 
 If we run npm run test:unit in our terminal, we indeed see that our test is passing and we’ve confirmed that MessageContainer is doing its job: wrapping the (stubbed) MessageDisplay component, which displays what the real child would have. Great.
 
+### The Advantages of Stubbing
+
+1. Isolate what you're testing
+2. Test one thing at at time
+3. Helps pinpoint what part of your code is broken
+
 ### The Disadvantages of Stubbing
 
 While stubs can help us simplify tests containing otherwise burdensome child components, we need to take a moment to consider the disadvantages of stubbing.
