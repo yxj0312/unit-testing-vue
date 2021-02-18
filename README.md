@@ -340,3 +340,13 @@ The answer to that is perhaps not a very satisfying one. Because the answer is: 
 We’ll create a const to store the stubMessage we are expecting to be rendered, and in our assertion we’ll compare that against the message that was mounted (from the stub).
 
 If we run npm run test:unit in our terminal, we indeed see that our test is passing and we’ve confirmed that MessageContainer is doing its job: wrapping the (stubbed) MessageDisplay component, which displays what the real child would have. Great.
+
+### The Disadvantages of Stubbing
+
+While stubs can help us simplify tests containing otherwise burdensome child components, we need to take a moment to consider the disadvantages of stubbing.
+
+Since a stub is really just a placeholder for the child component, if that real component’s behavior changed, we may need to then update the stub accordingly. This can lead to maintenance costs for upkeeping our stubs as our app evolves. Generally speaking, stubs can create a coupling between the test and component’s implementation details.
+
+Furthermore, since a stub isn’t the actual fully rendered component, you are reducing test coverage of your real component codebase, which can lead to reduced confidence that your tests are giving you truthful feedback about your app.
+
+I bring up these points not to discourage against using stubs, but to encourage you to use them wisely and sparingly, remembering that it’s often the better practice to focus on mocking modules and service layers like we saw in the previous lesson.
