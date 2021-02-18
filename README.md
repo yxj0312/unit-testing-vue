@@ -350,3 +350,9 @@ Since a stub is really just a placeholder for the child component, if that real 
 Furthermore, since a stub isn’t the actual fully rendered component, you are reducing test coverage of your real component codebase, which can lead to reduced confidence that your tests are giving you truthful feedback about your app.
 
 I bring up these points not to discourage against using stubs, but to encourage you to use them wisely and sparingly, remembering that it’s often the better practice to focus on mocking modules and service layers like we saw in the previous lesson.
+
+### What about ShallowMount?
+
+You may have seen shallowMount being used in other people’s test code. And you may have heard that it’s a handy way for only mounting the top-level parent and not its children (thus: shallow and not deep down into child layers). So why aren’t we using that? Why are we manually stubbing out our children?
+
+First, shallowMount falls victim to the same disadvantages (if not more) that stubs have: reduced confidence and increased coupling and maintenance. Secondly, if you start to use other libraries that sit on top of Vue Test Utils, such as Vue Testing Library, you’ll find that shallowMount isn’t supported. That’s why I’ve avoided teaching it. For more information on this, you can take a look at this article by Testing Library maintainer Kent C. Dodds.
